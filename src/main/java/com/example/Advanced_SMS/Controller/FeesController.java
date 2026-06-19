@@ -3,7 +3,7 @@ package com.example.Advanced_SMS.Controller;
 import com.example.Advanced_SMS.Entity.Fees;
 import com.example.Advanced_SMS.Entity.Fees.FeeStatus;
 import com.example.Advanced_SMS.Service.FeesService;
-import com.example.Advanced_SMS.Service.studentService;
+import com.example.Advanced_SMS.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class FeesController {
     @Autowired
     private FeesService feesService;
     @Autowired
-    private studentService studentService;
+    private StudentService studentService;
 
     @PostMapping("/create")
     public ResponseEntity<Fees> createFees(@RequestBody Fees fees) {
