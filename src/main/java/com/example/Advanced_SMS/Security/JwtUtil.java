@@ -2,6 +2,7 @@ package com.example.Advanced_SMS.Security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -10,8 +11,9 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // ⚠️ Change this secret to a long random string in production
-    private static final String SECRET = "MySuperSecretKeyForJWTTokenGeneration2024!";
+    @Value("${jwt.secret}")
+    private String SECRET;
+
     private static final long EXPIRY_MS = 1000 * 60 * 60 * 8; // 8 hours
 
     private Key getKey() {
@@ -31,6 +33,11 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return Jwts.parserBuilder().setSigningKey(getKey()).build()
                 .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String extractRole(String token) {
+        return (String) Jwts.parserBuilder().setSigningKey(getKey()).build()
+                .parseClaimsJws(token).getBody().get("role");
     }
 
     public boolean isTokenValid(String token) {
